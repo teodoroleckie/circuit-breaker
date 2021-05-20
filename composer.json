@@ -1,0 +1,61 @@
+{
+  "name": "tleckie/circuit-breaker",
+  "license": "MIT",
+  "description": "With the powerful Circuit Breaker library in PHP you will be able to manage and protect your application from requests that stop working to avoid overloads. The implementation that you will have to do is very simple.",
+  "type": "library",
+  "homepage": "https://github.com/teodoroleckie/circuit-breaker",
+  "authors": [
+    {
+      "name": "Teodoro Leckie Westberg",
+      "email": "teodoroleckie@gmail.com"
+    }
+  ],
+  "keywords": [
+    "tleckie",
+    "circuit-breaker",
+    "php-circuit-breaker",
+    "php",
+    "php-8",
+    "poo"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tleckie\\CircuitBreaker\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tleckie\\CircuitBreaker\\Tests\\": "tests/"
+    }
+  },
+  "provide": {
+  },
+  "require": {
+    "php": "^8",
+    "psr/simple-cache": "^1.0"
+  },
+  "require-dev": {
+    "infection/infection": "^0.21.5",
+    "phpunit/phpunit": "^9.5",
+    "friendsofphp/php-cs-fixer": "v3.0.0-beta.2"
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "vendor-dir": "vendor",
+    "bin-dir": "bin"
+  },
+  "scripts": {
+    "fix-src": "./bin/php-cs-fixer fix src/ ",
+    "fix-tests": "./bin/php-cs-fixer fix tests/",
+    "tests": "./bin/phpunit ./tests/",
+    "infection": "infection",
+    "check": [
+      "@putenv XDEBUG_MODE=coverage",
+      "@fix-src",
+      "@fix-tests",
+      "@tests",
+      "@infection"
+    ]
+  }
+}

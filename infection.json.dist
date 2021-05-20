@@ -1,0 +1,37 @@
+{
+  "source": {
+    "directories": [
+      "./src"
+    ],
+    "excludes": [
+      "./vendor/"
+    ]
+  },
+  "phpUnit": {
+    "configDir": ".\/tests\/",
+    "customPath": ".\/bin\/phpunit"
+  },
+  "logs": {
+    "text": ".\/infection-report"
+  },
+  "mutators": {
+    "@default": true,
+    "ProtectedVisibility": {
+        "ignore": [
+            "Tleckie\\CircuitBreaker\\CircuitBreaker"
+        ]
+    },
+    "DecrementInteger": {
+        "ignore": [
+            "Tleckie\\CircuitBreaker\\CircuitBreaker"
+        ]
+    },
+    "IncrementInteger": {
+        "ignore": [
+            "Tleckie\\CircuitBreaker\\CircuitBreaker"
+        ]
+    }
+  },
+  "testFramework":"phpunit",
+  "bootstrap": "./vendor/autoload.php"
+}
