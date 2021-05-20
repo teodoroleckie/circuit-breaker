@@ -2,6 +2,14 @@
 
 With the powerful Circuit Breaker library you will be able to manage and protect your application from requests that stop working to avoid overloads. The implementation that you will have to do is very simple.
 
+### Installation
+
+You can install the package via composer:
+
+```bash
+composer require tleckie/circuit-breaker
+```
+
 It's common for software systems to make remote calls to software running in different processes, probably on different 
 machines across a network. One of the big differences between in-memory calls and remote calls is that remote calls can 
 fail, or hang without a response until some timeout limit is reached. What's worse if you have many callers on a 
