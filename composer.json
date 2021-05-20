@@ -1,9 +1,9 @@
 {
-  "name": "tleckie/circuit-breaker",
+  "name": "tleckie/circuitbreaker",
   "license": "MIT",
   "description": "With the powerful Circuit Breaker library in PHP you will be able to manage and protect your application from requests that stop working to avoid overloads. The implementation that you will have to do is very simple.",
   "type": "library",
-  "homepage": "https://github.com/teodoroleckie/circuit-breaker",
+  "homepage": "https://github.com/teodoroleckie/circuitbreaker",
   "authors": [
     {
       "name": "Teodoro Leckie Westberg",
