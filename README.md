@@ -2,7 +2,7 @@
 
 With the powerful Circuit Breaker library you will be able to manage and protect your application from requests that stop working to avoid overloads. The implementation that you will have to do is very simple.
 
-### Installation
+# Installation:
 
 You can install the package via composer:
 
