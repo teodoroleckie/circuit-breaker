@@ -6,6 +6,8 @@ namespace Tleckie\CircuitBreaker;
 
 use Exception;
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
+use ReflectionException;
 use Tleckie\CircuitBreaker\Exception\CircuitBreakerException;
 use Tleckie\CircuitBreaker\Exception\ExceptionFactory;
 use Tleckie\CircuitBreaker\Exception\ExceptionFactoryInterface;
@@ -59,8 +61,29 @@ class CircuitBreaker implements CircuitBreakerInterface
 
     /**
      * @inheritdoc
+     *
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     public function callService(callable $callable, string $serviceName): mixed
+    {
+        $this->checkClosed($serviceName);
+
+        try {
+            return $callable();
+        } catch (CircuitBreakerException $exception) {
+            $this->halfOpen($exception->getException(), $serviceName);
+        }
+    }
+
+    /**
+     * @param string $serviceName
+     *
+     * @throws InvalidArgumentException
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    protected function checkClosed(string $serviceName): void
     {
         $exceptionKey = $this->exception($serviceName);
 
@@ -68,12 +91,6 @@ class CircuitBreaker implements CircuitBreakerInterface
             ($serialized = unserialize($this->cache->get($exceptionKey))) &&
             $serialized instanceof Serialized) {
             throw $this->factory->create($serialized);
-        }
-
-        try {
-            return $callable();
-        } catch (CircuitBreakerException $exception) {
-            $this->halfOpen($exception->getException(), $serviceName);
         }
     }
 
@@ -89,14 +106,14 @@ class CircuitBreaker implements CircuitBreakerInterface
     /**
      * @param Exception $exception
      * @param string $serviceName
+     *
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     protected function halfOpen(Exception $exception, string $serviceName)
     {
-        $exceptionKey = $this->exception($serviceName);
-
-        $retryKey = $this->retry($serviceName);
-
         $counter = 1;
+        $retryKey = $this->retry($serviceName);
 
         if ($this->cache->has($retryKey) && ($counter = $this->cache->get($retryKey)) && $counter) {
             $counter++;
@@ -107,6 +124,7 @@ class CircuitBreaker implements CircuitBreakerInterface
         if ($counter === $this->maxFailures) {
             $this->cache->delete($retryKey);
             $value = serialize(new Serialized($exception));
+            $exceptionKey = $this->exception($serviceName);
             $this->cache->set($exceptionKey, $value, $this->retryTimeout);
         }
 
@@ -115,6 +133,7 @@ class CircuitBreaker implements CircuitBreakerInterface
 
     /**
      * @param string $serviceName
+     *
      * @return string
      */
     protected function retry(string $serviceName): string
