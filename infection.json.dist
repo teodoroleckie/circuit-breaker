@@ -21,6 +21,11 @@
             "Tleckie\\CircuitBreaker\\CircuitBreaker"
         ]
     },
+    "MethodCallRemoval": {
+        "ignore": [
+            "Tleckie\\CircuitBreaker\\CircuitBreaker"
+        ]
+    },
     "DecrementInteger": {
         "ignore": [
             "Tleckie\\CircuitBreaker\\CircuitBreaker"
