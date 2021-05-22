@@ -161,7 +161,7 @@ class CircuitBreakerTest extends TestCase
             );
 
         $this->cacheMock
-            ->expects(self::atLeast(4))
+            ->expects(self::atLeast(3))
             ->method('set');
 
         $this->cacheMock
