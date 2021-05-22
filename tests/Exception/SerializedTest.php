@@ -71,20 +71,6 @@ class SerializedTest extends TestCase
         static::assertEquals('', $serialized->getMessage());
     }
 
-    /**
-     * @test
-     */
-    public function serialize(): void
-    {
-        $string = serialize($this->serialized);
-
-        static::assertTrue(is_string($string));
-
-        $serialized = unserialize($string);
-
-        static::assertInstanceOf(Serialized::class, $serialized);
-    }
-
     protected function setUp(): void
     {
         $this->exception = new Exception('test', 500);

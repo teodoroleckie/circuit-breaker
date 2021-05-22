@@ -26,6 +26,11 @@
             "Tleckie\\CircuitBreaker\\CircuitBreaker"
         ]
     },
+    "FunctionCall": {
+        "ignore": [
+            "Tleckie\\CircuitBreaker\\Exception\\Serialized"
+        ]
+    },
     "IncrementInteger": {
         "ignore": [
             "Tleckie\\CircuitBreaker\\CircuitBreaker"
