@@ -29,7 +29,7 @@ Usually you'll also want some kind of monitor alert if the circuit breaker trips
 
 
 Circuit breaker is heavily used in microservice architecture to find issues between microservices calls.
-The main idea is to protect your code from making unnecessary call if the microservice you call is down.
+The main idea is to protect your code from making unnecessary calls if the microservice you call is down.
 
 # Features:
 - Automatic update. (i.e you don't have to manually add success or failure method like other library)
